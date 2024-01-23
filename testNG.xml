@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="YaposhkaTestsSuite">
+    <test name="HomePageTests">
+        <classes>
+            <class name="org.alevel.tests.HomePageTest"/>
+        </classes>
+    </test>
+    <!-- Вы можете добавить дополнительные тесты здесь -->
+</suite>
