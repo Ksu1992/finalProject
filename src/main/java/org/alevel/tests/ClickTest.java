@@ -26,7 +26,7 @@ public class ClickTest {
         //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
         homePage = new HomePage(driver);
-        driver.get("https://yaposhka.com.ua/ua/");
+        driver.get("https://yaposhka.com.ua/");
     }
 
     @AfterMethod
@@ -40,27 +40,107 @@ public class ClickTest {
     @DataProvider(name = "linksProvider")
     public Object[][] createData() {
         return new Object[][]{
-//                { "Логотип", By.xpath("//a[@class='logo']"), "https://expected-url-for-logo.com/" },
-//                { "Навигационное меню", By.xpath("//div[@class='header-menu-container']"), "https://expected-url-for-navigation-menu.com/" },
-//                { "Ссылка Домой", By.xpath("//div[@class='page-footer']"), "https://expected-url-for-home-page.com/" },
-//                { "Ссылка 'Для нас'", By.xpath("//div[@class='footer-block footer-list footer-pages-nav']"), "https://expected-url-for-for-us.com/" },
-                {"Ресторани", By.cssSelector("li.level0.ui-menu-item:nth-of-type(1) > a.menu-item.level-top"), "https://yaposhka.com.ua/ua/"},
-//                { "Контакты", By.xpath("//div[@class='footer-block footer-list contacts-column']"), "https://expected-url-for-contacts.com/" },
-//                { "Поисковая строка", By.xpath("//div[@class='search-container']"), "https://expected-url-for-search-box.com/" },
-//                { "Список популярных продуктов", By.xpath("//div[contains(@class, 'home-category-favorites-container')]"), "https://expected-url-for-popular-products-list.com/" }
+                {"Рестораны", By.cssSelector("li.level0.ui-menu-item:nth-of-type(1) > a.menu-item.level-top"), "https://yaposhka.com.ua/", By.xpath("//div[@class='content-style-extend']")},
+                {"Доставка и оплата", By.cssSelector("li.level0.ui-menu-item:nth-of-type(2) > a.menu-item.level-top"), "https://yaposhka.com.ua/", By.xpath("//img[@src='https://yaposhka.com.ua/media/delivery/delivery_zone/dostavkadeksru_1.jpg']")},
+                {"Бонусы", By.cssSelector("li.level0.ui-menu-item:nth-of-type(3) > a.menu-item.level-top"), "https://yaposhka.com.ua/", By.xpath("//span[@class='base']")}
         };
     }
 
 
+
+
+
+    // Добавьте другие элементы здесь
+
+
     @Test(dataProvider = "linksProvider")
-    public void testElementClick(String elementName, By locator, String expectedUrl) {
+    public void testElementClick(String elementName, By locator, String expectedUrlStartsWith, By uniqueElementLocator) {
         homePage = new HomePage(driver);
         homePage.clickOnElementUsingActions(locator);
+
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.visibilityOfElementLocated(uniqueElementLocator));
+
         String actualUrl = driver.getCurrentUrl();
-        Assert.assertEquals(actualUrl, expectedUrl, "URL не соответствует ожидаемому после клика на " + elementName);
+        Assert.assertTrue(actualUrl.startsWith(expectedUrlStartsWith), "URL не начинается с ожидаемого: " + expectedUrlStartsWith + " после клика на " + elementName);
+        Assert.assertTrue(driver.findElement(uniqueElementLocator).isDisplayed(), "Уникальный элемент не найден");
     }
 }
-        // Дополнительные проверки после клика
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    @DataProvider(name = "linksProvider")
+//    public Object[][] createData() {
+//        return new Object[][]{
+////                { "Логотип", By.xpath("//a[@class='logo']"), "https://expected-url-for-logo.com/" },
+////                { "Навигационное меню", By.xpath("//div[@class='header-menu-container']"), "https://expected-url-for-navigation-menu.com/" },
+////                { "Ссылка Домой", By.xpath("//div[@class='page-footer']"), "https://expected-url-for-home-page.com/" },
+////                { "Ссылка 'Для нас'", By.xpath("//div[@class='footer-block footer-list footer-pages-nav']"), "https://expected-url-for-for-us.com/" },
+//                {"Ресторани", By.cssSelector("li.level0.ui-menu-item:nth-of-type(1) > a.menu-item.level-top"), "https://yaposhka.com.ua/ua/"},
+////                { "Контакты", By.xpath("//div[@class='footer-block footer-list contacts-column']"), "https://expected-url-for-contacts.com/" },
+////                { "Поисковая строка", By.xpath("//div[@class='search-container']"), "https://expected-url-for-search-box.com/" },
+////                { "Список популярных продуктов", By.xpath("//div[contains(@class, 'home-category-favorites-container')]"), "https://expected-url-for-popular-products-list.com/" }
+//        };
+//    }
+//
+//
+//    @Test(dataProvider = "linksProvider")
+//    public void testElementClick(String elementName, By locator, String expectedUrl, By uniqueElementLocator) {
+//        homePage = new HomePage(driver);
+//        homePage.clickOnElementUsingActions(locator);
+//
+//        // Ожидание перехода на новую страницу и появления уникального элемента
+//        new WebDriverWait(driver, Duration.ofSeconds(10))
+//                .until(ExpectedConditions.visibilityOfElementLocated(uniqueElementLocator));
+//
+//        String actualUrl = driver.getCurrentUrl();
+//        Assert.assertEquals(actualUrl, expectedUrl, "URL не соответствует ожидаемому после клика на " + elementName);
+//
+//        // Проверка наличия уникального элемента на странице
+//        Assert.assertTrue(driver.findElement(uniqueElementLocator).isDisplayed(), "Уникальный элемент не отображается на странице");
+//    }
+//
+//
+//    @DataProvider(name = "linksProvider")
+//    public Object[][] createData(){}
+//        return new Object[][]{
+//                // Пример: добавление локатора уникального элемента для каждого URL
+//                {"Ресторани", By.cssSelector("li.level0.ui-menu-item:nth-of-type(1) > a.menu-item.level-top"), "https://yaposhka.com.ua/ua/", By.id("unique-element-id")},
+//                // Добавьте другие элементы здесь
+//        }
+//
+//
 
 
 
