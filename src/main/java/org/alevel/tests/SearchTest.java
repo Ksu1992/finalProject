@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-public class SearchTest extends BasePage {
+public class SearchTest {
     private WebDriver driver;
 
     @BeforeMethod
