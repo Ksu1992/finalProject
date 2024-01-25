@@ -15,7 +15,7 @@ public class ProductPage extends BasePage {
     private Header header;
 
     private By addToCartButton = By.xpath("//button[@id='product-addtocart-button']");
-    private By confirmationMessage=By.xpath("//div[@class='minicart-header grid-extend']");
+    private By confirmationMessage = By.xpath("//div[@class='minicart-header grid-extend']");
 
     public ProductPage(WebDriver driver) {
         super(driver);
@@ -24,34 +24,31 @@ public class ProductPage extends BasePage {
 
     public void navigateToProductPage(String categoryName, String productName) {
         header.clickOnCategory(categoryName); // Переход к категории
-
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         By productLink = By.xpath("//a[contains(text(), '" + productName + "')]");
         wait.until(ExpectedConditions.visibilityOfElementLocated(productLink)).click();
+        System.out.println(categoryName);
 
-        // уникальный элемент на странице товара, который подтверждает ее загрузку
-        By productDetail = By.xpath("//div[@class='content-style-extend']");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(productDetail));
-
+//        switch (categoryName) {
+//            case "Піца":
+//                // ожидание для страницы пиццы
+//                wait.until(ExpectedConditions.urlContains("https://yaposhka.com.ua/ua/pica-z-moreproduktami/"));
+//                break;
+//            case "Бургери":
+//                // ожидание для страницы бургеров
+//                wait.until(ExpectedConditions.urlContains("https://yaposhka.com.ua/ua/smiliva-kurochka/"));
+//                break;
+//            default:
+//                throw new IllegalStateException("Category not recognized: " + categoryName);
+//        }
     }
+
 
     public void addToCart() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement addToCartBtn = wait.until(ExpectedConditions.elementToBeClickable(addToCartButton));
         addToCartBtn.click();
-
-        By confirmationMessage = By.id("confirmation-message");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(confirmationMessage)); // Ожидание подтверждения добавления в корзину
-    }
-
-    public boolean isProductInCart() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("cart-item-count")));
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
     }
 }
+
 

@@ -96,13 +96,12 @@ public class HomePage extends BasePage {
     }
 
     // Делегирование вызовов методов Footer и Header
-    public void clickOnFooterLink() {
-        footer.clickFooterLink();
+
+
+    public void clickOnHeaderMenu(String menuName) {
+        header.clickOnCategory(menuName);
     }
 
-    public void clickOnHeaderLink() {
-        header.clickHeaderLink();
-    }
 
     // Методы для взаимодействия с элементами через Actions
     public void clickOnElementUsingActions(By locator) {
@@ -138,3 +137,4 @@ public class HomePage extends BasePage {
         clickOnElementUsingActions(popularProductsListLocator);
     }
 }
+

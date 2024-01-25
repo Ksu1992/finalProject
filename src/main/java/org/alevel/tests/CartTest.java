@@ -4,6 +4,7 @@ import org.alevel.base.BasePage;
 import org.alevel.pages.CartPage;
 import org.alevel.pages.ProductPage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -35,9 +36,9 @@ public class CartTest {
     @DataProvider(name = "productData")
     public Object[][] createProductData() {
         return new Object[][]{
-                {"Піца", "Піца"},
-                {"Супи", "Суп"},
-                {"Бургери", "Бургер"}
+                {"Піца", "Піца з морепродуктами"},
+               {"Салати", "Зелений салат з горіховим соусом"},
+                {"Бургери", "З куркою та беконовим джемом"}
         };
     }
 
@@ -51,10 +52,8 @@ public class CartTest {
 
         // Проверка, что товар добавлен в корзину. Например, проверка наличия элемента или текста.
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("cart-item-count"))); // Пример: ожидание элемента, который показывает количество товаров в корзине
-
-        // Получение количества товаров в корзине и проверка
-        String itemCount = driver.findElement(By.id("cart-item-count")).getText();
+        WebElement qtyElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='counter qty']")));
+        String itemCount = qtyElement.getText();
         System.out.println(itemCount);
         Assert.assertNotEquals(itemCount, "0", "Cart is empty, but should have items.");
     }

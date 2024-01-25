@@ -1,59 +1,70 @@
 package org.alevel.pages.components;
-import org.openqa.selenium.By;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+
+import org.openqa.selenium.NoSuchElementException;
+
+
 public class Header {
     private WebDriver driver;
 
-    @FindBy(xpath = "//a[@class='header-link']")
-    private WebElement headerLink;
-
-    // Добавим @FindBy для других элементов меню, если они имеют уникальные селекторы
-    // Например:
-    @FindBy(xpath = "//span[@class='advancedmenu-link level0 level-top']//span[@class='text-block grid-extend']/span[@class='name' and (contains(text(), 'Sushi') or contains(text(), 'Суши') or contains(text(), 'Суші'))]")
-    private WebElement sushiMenuLink;
-
-    @FindBy(xpath = "//a[@class='advancedmenu-link level0 level-top']//span[@class='text-block grid-extend']/span[@class='name' and (contains(text(), 'Pizza') or contains(text(), 'Пицца') or contains(text(), 'Піца'))]")
+    @FindBy(xpath = "//span[contains(text(), 'Піца') or contains(text(), 'Pizza') or contains(text(), 'Пицца')]")
     private WebElement pizzaMenuLink;
 
-    @FindBy(xpath = "//a[@class='advancedmenu-link level0 level-top']//span[@class='text-block grid-extend']/span[@class='name' and (contains(text(), 'Supy') or contains(text(), 'Супы') or contains(text(), 'Супи'))]")
-    private WebElement supyMenuLink;
+    @FindBy(xpath = "//span[contains(text(), 'Салати') or contains(text(), 'Salads') or contains(text(), 'Салаты')]")
+    private WebElement saladsMenuLink;
 
-    @FindBy(xpath = "//a[@class='advancedmenu-link level0 level-top']//span[@class='text-block grid-extend']/span[@class='name' and (contains(text(), 'Бургеры') or contains(text(), 'Бургери') or contains(text(), 'Burgery'))]")
-    private WebElement burgeryMenuLink;
+    @FindBy(xpath = "//span[contains(text(), 'Бургери') or contains(text(), 'Burgers') or contains(text(), 'Бургеры')]")
+    private WebElement burgersMenuLink;
+
     public Header(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
-    public void clickHeaderLink() {
-        headerLink.click();
+    private void clickMenuLink(WebElement menuLink, String menuName) {
+        try {
+            if (menuLink.isDisplayed() && menuLink.isEnabled()) {
+                menuLink.click();
+                System.out.println("Clicked on " + menuName + " menu");
+            }
+        } catch (NoSuchElementException e) {
+            System.out.println("Error: " + menuName + " menu link not found.");
+            throw e;
+        } catch (Exception e) {
+            System.out.println("Error clicking on " + menuName + " menu: " + e.getMessage());
+            throw e;
+        }
     }
 
-    public void clickSushiMenu() {
-        sushiMenuLink.click();
-    }
-
-    public void clickPizzaMenu() {
-        pizzaMenuLink.click();
-    }
-
-    public void clickSupyMenu() {supyMenuLink.click();
-    }
-
-    public void clickBurgeryMenu() {
-        burgeryMenuLink.click();
-    }
-
-    // ... добавьте методы для других элементов по аналогии
 
     public void clickOnCategory(String categoryName) {
-        WebElement categoryLink = driver.findElement(By.xpath("//a[contains(text(), '" + categoryName + "')]"));
-        categoryLink.click();
+        switch (categoryName.toLowerCase()) {
+            case "pizza":
+            case "пицца":
+            case "піца":
+                clickMenuLink(pizzaMenuLink, categoryName);
+                break;
+            case "salads":
+            case "салаты":
+            case "салати":
+                clickMenuLink(saladsMenuLink, categoryName);
+                break;
+            case "burgers":
+            case "бургеры":
+            case "бургери":
+                clickMenuLink(burgersMenuLink, categoryName);
+                break;
+            default:
+                System.out.println("Category not recognized: " + categoryName);
+                break;
+        }
     }
+
 }
 
 
