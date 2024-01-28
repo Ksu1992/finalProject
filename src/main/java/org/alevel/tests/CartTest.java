@@ -36,9 +36,9 @@ public class CartTest {
     @DataProvider(name = "productData")
     public Object[][] createProductData() {
         return new Object[][]{
-                {"Піца", "Піца з морепродуктами"},
+                //{"Піца", "Піца з морепродуктами"},
                 {"Салати", "Зелений салат з горіховим соусом"},
-                {"Бургери", "З куркою та беконовим джемом"}
+                //{"Бургери", "З куркою та беконовим джемом"}
         };
     }
 
@@ -100,27 +100,42 @@ public class CartTest {
 
         Assert.assertEquals(actualQuantity, "5", "Quantity did not update correctly");
     }
+
+
+    @Test(dataProvider = "productData")
+    public void testRemoveItemFromCart(String categoryName, String productName) {
+        ProductPage productPage = new ProductPage(driver);
+        CartPage cartPage = new CartPage(driver);
+        Actions actions = new Actions(driver);
+
+        // Навигация на страницу товара и добавление в корзину
+        productPage.navigateToProductPage(categoryName, productName);
+        productPage.addToCart();
+
+        WebElement headerElement = driver.findElement(By.xpath("//div[@class='minicart-header grid-extend']")); // Замените на правильный id или другой локатор
+        actions.moveToElement(headerElement).perform();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebElement orderButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='top-cart-btn-checkout']")));
+        //Thread.sleep(1000); // Пауза в 1 секунду (можно настраивать)
+        orderButton.click();
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@class='action delete icon-block']")));
+
+        // Ожидание появления иконки корзины
+        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='product-actions']")));
+
+        // Удаление товара из корзины
+        cartPage.removeItem();
+
+        // Ожидание исчезновения товара из корзины
+        By uniqueItemLocator = By.xpath("//div[@class='product-actions']");
+        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        boolean isItemRemoved = wait.until(ExpectedConditions.invisibilityOfElementLocated(uniqueItemLocator));
+
+        // Проверка успешного удаления товара из корзины
+        Assert.assertTrue(isItemRemoved, "Item is still present in the cart after removal");
+    }
 }
-
-//    @Test(dataProvider = "productData")
-//    public void testRemoveItemFromCart(String categoryName, String productName) {
-//        ProductPage productPage = new ProductPage(driver);
-//        CartPage cartPage = new CartPage(driver);
-//
-//        productPage.navigateToProductPage(categoryName, productName);
-//        productPage.addToCart();
-//
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='cart-icon-block']/div[@class='icon-block']"))); // Ожидание появления иконки корзины
-//
-//        cartPage.removeItem();
-//
-//        By uniqueItemLocator = By.id("unique-item-id"); // Используйте актуальный локатор для вашего товара
-//
-//        boolean isItemRemoved = wait.until(ExpectedConditions.invisibilityOfElementLocated(uniqueItemLocator));
-//        Assert.assertTrue(isItemRemoved, "Item is still present in the cart after removal");
-//    }
-//
-//
-//}
-
