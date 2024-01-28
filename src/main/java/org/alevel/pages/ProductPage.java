@@ -17,6 +17,8 @@ public class ProductPage extends BasePage {
     private By addToCartButton = By.xpath("//button[@id='product-addtocart-button']");
     private By confirmationMessage = By.xpath("//div[@class='minicart-header grid-extend']");
 
+    private By orderButton = By.xpath("//button[@id='top-cart-btn-checkout']");
+
     public ProductPage(WebDriver driver) {
         super(driver);
         this.header = new Header(driver); // Инициализация Header
@@ -49,6 +51,14 @@ public class ProductPage extends BasePage {
         WebElement addToCartBtn = wait.until(ExpectedConditions.elementToBeClickable(addToCartButton));
         addToCartBtn.click();
     }
+
+
+    public void clickOrderButton() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement orderBtn = wait.until(ExpectedConditions.elementToBeClickable(orderButton));
+        orderBtn.click();
+    }
 }
+
 
 

@@ -21,7 +21,7 @@ public class SearchTest {
 
     @BeforeMethod
     public void setUp() {
-        System.setProperty("webdriver.firefox.driver", "path/to/firefoxdriver");
+        System.setProperty("web-driver.firefox.driver", "path/to/firefox driver");
         driver = new FirefoxDriver();
         driver.get("https://yaposhka.com.ua/");
     }
