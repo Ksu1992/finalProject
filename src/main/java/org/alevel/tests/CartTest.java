@@ -36,9 +36,9 @@ public class CartTest {
     @DataProvider(name = "productData")
     public Object[][] createProductData() {
         return new Object[][]{
-                //{"Піца", "Піца з морепродуктами"},
+                {"Піца", "Піца з морепродуктами"},
                 {"Салати", "Зелений салат з горіховим соусом"},
-                //{"Бургери", "З куркою та беконовим джемом"}
+                {"Бургери", "З куркою та беконовим джемом"}
         };
     }
 
@@ -50,7 +50,7 @@ public class CartTest {
         productPage.navigateToProductPage(categoryName, productName);
         productPage.addToCart();
 
-        // Проверка, что товар добавлен в корзину. Например, проверка наличия элемента или текста.
+        // Проверка, что товар добавлен в корзину.
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement qtyElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='counter qty']")));
         String itemCount = qtyElement.getText();
