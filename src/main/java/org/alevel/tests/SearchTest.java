@@ -62,7 +62,6 @@ public class SearchTest {
 
         wait.until(ExpectedConditions.urlContains("q=")); // Ожидать изменения URL, связанного с запросом
 
-
         // Проверка, что результаты поиска отображаются
         Assert.assertTrue(SearchPage.areSearchResultsDisplayed(driver, By.xpath("//span[@class='base']")), "Результат поиска не отображается");
 
