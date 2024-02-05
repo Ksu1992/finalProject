@@ -40,8 +40,8 @@ public class ClickTest {
     @DataProvider(name = "linksProvider")
     public Object[][] createData() {
         return new Object[][]{
-                {"Рестораны", By.cssSelector("li.level0.ui-menu-item:nth-of-type(1) > a.menu-item.level-top"), "https://yaposhka.com.ua/", By.xpath("//div[@class='content-style-extend']")},
-                {"Доставка и оплата", By.cssSelector("li.level0.ui-menu-item:nth-of-type(2) > a.menu-item.level-top"), "https://yaposhka.com.ua/", By.xpath("//img[@src='https://yaposhka.com.ua/media/delivery/delivery_zone/dostavkadeksru_1.jpg']")},
+                {"Рестораны", By.cssSelector("li.level0.ui-menu-item:nth-of-type(1) > a.menu-item.level-top"), "https://yaposhka.com.ua/", By.xpath("//div[@class='tab-toggle active']")},
+                {"Доставка и оплата", By.cssSelector("li.level0.ui-menu-item:nth-of-type(2) > a.menu-item.level-top"), "https://yaposhka.com.ua/", By.xpath("//div[@class='supplements-table']")},
                 {"Бонусы", By.cssSelector("li.level0.ui-menu-item:nth-of-type(3) > a.menu-item.level-top"), "https://yaposhka.com.ua/", By.xpath("//span[@class='base']")}
         };
     }
