@@ -1,9 +1,54 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="YaposhkaTestsSuite">
+
     <test name="HomePageTests">
         <classes>
             <class name="org.alevel.tests.HomePageTest"/>
         </classes>
     </test>
+
+    <test name="ClickTest">
+        <classes>
+            <class name="org.alevel.tests.ClickTest"/>
+        </classes>
+    </test>
+
+    <test name="SearchTest">
+        <classes>
+            <class name="org.alevel.tests.SearchTest"/>
+        </classes>
+    </test>
+
+    <test name="CarouselTest">
+        <classes>
+            <class name="org.alevel.tests.CarouselTest"/>
+        </classes>
+    </test>
+
+    <test name="CartTest">
+        <classes>
+            <class name="org.alevel.tests.CartTest"/>
+        </classes>
+    </test>
+
+    <test name="FeedbackFormTest">
+        <classes>
+            <class name="org.alevel.tests.FeedbackFormTest"/>
+        </classes>
+    </test>
+
+    <test name="OrderTest">
+        <classes>
+            <class name="org.alevel.tests.OrderTest"/>
+        </classes>
+    </test>
+
+    <test name="PickupTest">
+        <classes>
+            <class name="org.alevel.tests.PickupTest"/>
+        </classes>
+    </test>
+
     <!-- Вы можете добавить дополнительные тесты здесь -->
 </suite>
+
