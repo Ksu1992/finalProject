@@ -2,6 +2,7 @@ package org.alevel.tests;
 import org.alevel.pages.CartPage;
 import org.alevel.pages.CheckoutPage;
 import org.alevel.pages.ProductPage;
+import org.alevel.pages.components.PopupPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -47,10 +48,14 @@ public class OrderTest {
         ProductPage productPage = new ProductPage(driver);
         CartPage cartPage = new CartPage(driver);
         CheckoutPage checkoutPage = new CheckoutPage(driver);
+        PopupPage popupPage = new PopupPage(driver);
 
         // Навигация на страницу продукта и добавление в корзину
         productPage.navigateToProductPage(categoryName, productName);
         productPage.addToCart();
+
+        // Закрытие всплывающего окна, если оно отображается
+        popupPage.closePopupIfPresent();
 
         // Создание экземпляра Actions
         Actions actions = new Actions(driver);

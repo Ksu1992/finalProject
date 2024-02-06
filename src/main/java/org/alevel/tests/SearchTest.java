@@ -36,12 +36,12 @@ public class SearchTest {
     @DataProvider(name = "searchQueries")
     public Object[][] createSearchQueries() {
         return new Object[][]{
-                {"Соус"},
-                {"Бургер"},
+                {"Курочка"},
+                {"Креветки"},
                 {"Вино"},
                 {"Суп"},
-                {"Шаурма"},
-                {"Десерти"}
+                {"Салат"},
+                {"Боул"}
         };
     }
 
