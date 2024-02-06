@@ -26,7 +26,7 @@ public class ClickTest {
         //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
         homePage = new HomePage(driver);
-        driver.get("https://yaposhka.com.ua/");
+        driver.get("https://yaposhka.com.ua/ua/");
     }
 
     @AfterMethod
@@ -40,9 +40,9 @@ public class ClickTest {
     @DataProvider(name = "linksProvider")
     public Object[][] createData() {
         return new Object[][]{
-                {"Рестораны", By.cssSelector("li.level0.ui-menu-item:nth-of-type(1) > a.menu-item.level-top"), "https://yaposhka.com.ua/", By.xpath("//div[@class='tab-toggle active']")},
-                {"Доставка и оплата", By.cssSelector("li.level0.ui-menu-item:nth-of-type(2) > a.menu-item.level-top"), "https://yaposhka.com.ua/", By.xpath("//div[@class='supplements-table']")},
-                {"Бонусы", By.cssSelector("li.level0.ui-menu-item:nth-of-type(3) > a.menu-item.level-top"), "https://yaposhka.com.ua/", By.xpath("//span[@class='base']")}
+                {"Ресторани", By.cssSelector("li.level0.ui-menu-item:nth-of-type(1) > a.menu-item.level-top"), "https://yaposhka.com.ua/", By.xpath("//div[@class='tab-toggle active']")},
+                {"Доставка та оплата", By.cssSelector("li.level0.ui-menu-item:nth-of-type(2) > a.menu-item.level-top"), "https://yaposhka.com.ua/", By.xpath("//div[@class='supplements-table']")},
+                {"Бонуси", By.cssSelector("li.level0.ui-menu-item:nth-of-type(3) > a.menu-item.level-top"), "https://yaposhka.com.ua/", By.xpath("//span[@class='base']")}
         };
     }
 
