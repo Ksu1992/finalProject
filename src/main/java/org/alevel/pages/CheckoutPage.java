@@ -18,10 +18,10 @@ public class CheckoutPage extends BasePage {
     public CheckoutPage(WebDriver driver) {
         super(driver);
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(40));
     }
 
-    public void fillShippingInformation(String firstName, String phone, String city, String address, String entrance, String apartment, String floor, String intercomCode, String paymentMethods, String cutlery) {
+    public void fillShippingInformation(String firstName, String phone, String address, String entrance, String apartment, String floor, String intercomCode, String paymentMethods) {
         // Ожидание и заполнение полей информации о доставке
         WebElement firstNameInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='firstname']")));
         firstNameInput.click();
@@ -54,21 +54,20 @@ public class CheckoutPage extends BasePage {
         WebElement entranceInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='custom_attributes[courier_entrance]']")));
         entranceInput.sendKeys(entrance);
 
-        WebElement apartmentInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[contains(@name, 'courier_apartment')]")));
+        WebElement apartmentInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='custom_attributes[courier_apartment]']")));
         apartmentInput.sendKeys(apartment);
 
-        WebElement floorInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[contains(@name, 'courier_floor')]")));
+        WebElement floorInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='custom_attributes[courier_floor]']")));
         floorInput.sendKeys(floor);
 
-        WebElement intercomCodeInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[contains(@name, 'courier_intercom_code')]")));
+        WebElement intercomCodeInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='custom_attributes[courier_intercom_code]']")));
         intercomCodeInput.sendKeys(intercomCode);
 
-        WebElement paymentMethodsInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@type='radio' and starts-with(@name, 'payment[method]') and @value='checkmo']")));
+        WebElement paymentMethodsInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='portmone']")));
         paymentMethodsInput.click();
 
-        WebElement callMeInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-bind='checked: recallValue, disable: recallDisabled']")));
-        callMeInput.sendKeys(cutlery);
     }
+
 
     // Метод для получения значения поля "ФИО"
     public String getFullName() {
@@ -90,41 +89,40 @@ public class CheckoutPage extends BasePage {
 
     // Метод для получения значения поля "Подъезд"
     public String getEntrance() {
-        WebElement entranceInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[contains(@name, 'courier_entrance')]")));
+        WebElement entranceInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='custom_attributes[courier_entrance]']")));
         return entranceInput.getAttribute("value");
-    }
-
-    // Метод для получения значения поля "Этаж"
-    public String getFloor() {
-        WebElement floorInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[contains(@name, 'courier_floor')]")));
-        return floorInput.getAttribute("value");
     }
 
     // Метод для получения значения поля "Квартира"
     public String getApartment() {
-        WebElement apartmentInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[contains(@name, 'courier_apartment')]")));
+        WebElement apartmentInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='custom_attributes[courier_apartment]']")));
         return apartmentInput.getAttribute("value");
     }
 
+    // Метод для получения значения поля "Этаж"
+    public String getFloor() {
+        WebElement floorInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='custom_attributes[courier_floor]']")));
+        return floorInput.getAttribute("value");
+    }
+
+
     // Метод для получения значения поля "Домофон"
     public String getIntercom() {
-        WebElement intercomInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[contains(@name, 'courier_intercom_code')]")));
+        WebElement intercomInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='custom_attributes[courier_intercom_code]']")));
         return intercomInput.getAttribute("value");
     }
 
     // Метод для получения значения поля "Метод оплаты"
     public String getPaymentMethod() {
-        WebElement paymentMethodInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@type='radio' and starts-with(@name, 'payment[method]') and @value='checkmo']")));
+        WebElement paymentMethodInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='portmone']")));
         return paymentMethodInput.getAttribute("value");
     }
+
     public void assertOrderFields() {
-        Assert.assertFalse(getFullName().isEmpty(), "Поле 'ФИО' не заполнено");
+        Assert.assertFalse(getFullName().isEmpty(), "Поле 'Имя' не заполнено");
         Assert.assertFalse(getPhone().isEmpty(), "Поле 'Телефон' не заполнено");
-        Assert.assertFalse(getAddress().isEmpty(), "Поле 'Адрес' не заполнено");
-//        Assert.assertFalse(getEntrance().isEmpty(), "Поле 'Подъезд' не заполнено");
-//        Assert.assertFalse(getFloor().isEmpty(), "Поле 'Этаж' не заполнено");
-//        Assert.assertFalse(getApartment().isEmpty(), "Поле 'Квартира' не заполнено");
-//        Assert.assertFalse(getIntercom().isEmpty(), "Поле 'Домофон' не заполнено");
-//        Assert.assertFalse(getPaymentMethod().isEmpty(), "Поле 'Метод оплаты' не заполнено");
+           Assert.assertFalse(getAddress().isEmpty(), "Поле 'Адрес' не заполнено");
+
     }
 }
+

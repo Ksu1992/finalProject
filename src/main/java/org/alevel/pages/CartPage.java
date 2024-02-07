@@ -38,5 +38,5 @@ public class CartPage extends BasePage {
         return driver.findElements(emptyCartMessage).size() > 0;
     }
 
-    // Другие методы, связанные со страницей корзины
+
 }

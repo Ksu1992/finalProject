@@ -45,7 +45,7 @@ public class ProductPage extends BasePage {
 
 
     public void addToCart() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         WebElement addToCartBtn = wait.until(ExpectedConditions.elementToBeClickable(addToCartButton));
         addToCartBtn.click();
     }

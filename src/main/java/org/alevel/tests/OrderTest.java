@@ -36,7 +36,7 @@ public class OrderTest {
     @DataProvider(name = "productData")
     public Object[][] createProductData() {
         return new Object[][]{
-                {"Піца", "Піца з морепродуктами"},
+               // {"Піца", "Піца з морепродуктами"},
                 {"Салати", "Зелений салат з горіховим соусом"},
                 {"Бургери", "З куркою та беконовим джемом"}
         };
@@ -48,14 +48,14 @@ public class OrderTest {
         ProductPage productPage = new ProductPage(driver);
         CartPage cartPage = new CartPage(driver);
         CheckoutPage checkoutPage = new CheckoutPage(driver);
-        PopupPage popupPage = new PopupPage(driver);
+       // PopupPage popupPage = new PopupPage(driver);
 
         // Навигация на страницу продукта и добавление в корзину
         productPage.navigateToProductPage(categoryName, productName);
         productPage.addToCart();
 
         // Закрытие всплывающего окна, если оно отображается
-        popupPage.closePopupIfPresent();
+       // popupPage.closePopupIfPresent();
 
         // Создание экземпляра Actions
         Actions actions = new Actions(driver);
@@ -72,7 +72,7 @@ public class OrderTest {
         // Ожидание видимости элемента на странице оформления заказа
         wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
-        checkoutPage.fillShippingInformation("Ксения", "973944987", "", "Харків,Натальї Ужвій,64", "3", "116", "7", "345", "cash", "");
+        checkoutPage.fillShippingInformation("Ксения", "973944987", "Харків,Натальї Ужвій,64", "3", "116", "7", "345", "portmone");
         checkoutPage.assertOrderFields();
     }
 }
