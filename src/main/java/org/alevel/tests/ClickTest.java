@@ -21,6 +21,7 @@ public class ClickTest {
 
     @BeforeMethod
     public void setUp() {
+        System.setProperty("web-driver.firefox.driver", "path/to/firefox driver");
         // Инициализация WebDriver и настройка необходимых параметров
         driver = new FirefoxDriver();
         //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
@@ -45,14 +46,6 @@ public class ClickTest {
                 {"Бонуси", By.cssSelector("li.level0.ui-menu-item:nth-of-type(3) > a.menu-item.level-top"), "https://yaposhka.com.ua/", By.xpath("//span[@class='base']")}
         };
     }
-
-
-
-
-
-    // Добавьте другие элементы здесь
-
-
     @Test(dataProvider = "linksProvider")
     public void testElementClick(String elementName, By locator, String expectedUrlStartsWith, By uniqueElementLocator) {
         homePage = new HomePage(driver);

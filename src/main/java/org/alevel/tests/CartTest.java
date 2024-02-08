@@ -3,6 +3,7 @@ package org.alevel.tests;
 import org.alevel.base.BasePage;
 import org.alevel.pages.CartPage;
 import org.alevel.pages.ProductPage;
+import org.alevel.pages.components.PopupPage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -22,6 +23,7 @@ public class CartTest {
 
     @BeforeMethod
     public void setUp() {
+        System.setProperty("web-driver.firefox.driver", "path/to/firefox driver");
         driver = new FirefoxDriver(); // Инициализация драйвера
         driver.get("https://yaposhka.com.ua/ua/");
     }
@@ -46,26 +48,41 @@ public class CartTest {
     public void testAddToCart(String categoryName, String productName) {
         ProductPage productPage = new ProductPage(driver);
         CartPage cartPage = new CartPage(driver);
+        PopupPage popupPage = new PopupPage(driver);
 
         productPage.navigateToProductPage(categoryName, productName);
         productPage.addToCart();
 
-        // Проверка, что товар добавлен в корзину.
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement orderButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='product-addtocart-button']")));
+        orderButton.click();
+        popupPage.closePopupIfPresent();
+
+        // Проверка, что товар добавлен в корзину.
         WebElement qtyElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='counter qty']")));
         String itemCount = qtyElement.getText();
         System.out.println(itemCount);
         Assert.assertNotEquals(itemCount, "0", "Cart is empty, but should have items.");
+
+        driver.navigate().refresh();
+
+        // Повторный поиск кнопки заказа после обновления страницы
+        WebElement orderButtonAfterRefresh = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='product-addtocart-button']")));
     }
+
+
+
 
 
     @Test(dataProvider = "productData")
     public void testChangeItemQuantityInCart(String categoryName, String productName) throws InterruptedException {
         ProductPage productPage = new ProductPage(driver);
         CartPage cartPage = new CartPage(driver);
+        PopupPage popupPage = new PopupPage(driver);
 
         productPage.navigateToProductPage(categoryName, productName);
         productPage.addToCart();
+        popupPage.closePopupIfPresent();
 
         // Создание экземпляра Actions
         Actions actions = new Actions(driver);
@@ -78,6 +95,7 @@ public class CartTest {
         WebElement orderButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='top-cart-btn-checkout']")));
         Thread.sleep(1000); // Пауза в 1 секунду (можно настраивать)
         orderButton.click();
+
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='cart-item grid-extend']//input[@class='item-qty cart-item-qty']")));
 
@@ -117,7 +135,7 @@ public class CartTest {
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         WebElement orderButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='top-cart-btn-checkout']")));
-        //Thread.sleep(1000); // Пауза в 1 секунду (можно настраивать)
+
         orderButton.click();
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@class='action delete icon-block']")));

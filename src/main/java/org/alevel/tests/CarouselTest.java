@@ -19,6 +19,7 @@ public class CarouselTest extends BasePage {
     @BeforeTest
     public void setUp() {
         driver = new FirefoxDriver();
+        System.setProperty("web-driver.firefox.driver", "path/to/firefox driver");
     }
 
     @Test

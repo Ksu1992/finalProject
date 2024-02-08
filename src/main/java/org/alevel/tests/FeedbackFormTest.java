@@ -19,6 +19,7 @@ public class FeedbackFormTest {
 
     @BeforeMethod
     public void setUp() {
+        System.setProperty("web-driver.firefox.driver", "path/to/firefox driver");
         // Инициализация WebDriver
         driver = new FirefoxDriver(); // Инициализация драйвера (замените на нужный)
         driver.get("https://yaposhka.com.ua/");

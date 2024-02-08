@@ -22,6 +22,7 @@ public class OrderTest {
 
     @BeforeMethod
     public void setUp() {
+        System.setProperty("web-driver.firefox.driver", "path/to/firefox driver");
         driver = new FirefoxDriver(); // Инициализация драйвера
         driver.get("https://yaposhka.com.ua/ua/");
     }

@@ -20,6 +20,7 @@ public class HomePageTest {
 
     @BeforeMethod
     public void setUp() {
+        System.setProperty("web-driver.firefox.driver", "path/to/firefox driver");
         driver = new FirefoxDriver();
         driver.get("https://yaposhka.com.ua");
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
