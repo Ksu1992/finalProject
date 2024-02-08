@@ -4,6 +4,7 @@ package org.alevel.tests;
 import org.alevel.pages.HomePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -21,11 +22,10 @@ public class ClickTest {
 
     @BeforeMethod
     public void setUp() {
-        System.setProperty("webdriver.gecko.driver", "C:\\Users\\Kseniia\\.cache\\selenium\\geckodriver\\win64\\0.33.0C\\geckodriver.exe");
-
-        // Инициализация WebDriver и настройка необходимых параметров
-        driver = new FirefoxDriver();
-        //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        System.setProperty("webdriver.gecko.driver", "C:\\driver\\geckodriver.exe");
+        FirefoxOptions options = new FirefoxOptions();
+        options.setBinary("C:\\Program Files\\Mozilla Firefox\\firefox.exe");
+        driver = new FirefoxDriver(options);
         driver.manage().window().maximize();
         homePage = new HomePage(driver);
         driver.get("https://yaposhka.com.ua/ua/");

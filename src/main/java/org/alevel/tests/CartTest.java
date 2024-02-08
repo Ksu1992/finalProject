@@ -6,6 +6,7 @@ import org.alevel.pages.ProductPage;
 import org.alevel.pages.components.PopupPage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -23,8 +24,10 @@ public class CartTest {
 
     @BeforeMethod
     public void setUp() {
-        System.setProperty("webdriver.gecko.driver", "C:\\Users\\Kseniia\\.cache\\selenium\\geckodriver\\win64\\0.33.0C\\geckodriver.exe");
-        driver = new FirefoxDriver(); // Инициализация драйвера
+        System.setProperty("webdriver.gecko.driver", "C:\\driver\\geckodriver.exe");
+        FirefoxOptions options = new FirefoxOptions();
+        options.setBinary("C:\\Program Files\\Mozilla Firefox\\firefox.exe");
+        driver = new FirefoxDriver(options); // Инициализация драйвера
         driver.get("https://yaposhka.com.ua/ua/");
     }
 
