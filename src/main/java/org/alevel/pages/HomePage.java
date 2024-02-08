@@ -1,5 +1,4 @@
 package org.alevel.pages;
-
 import org.alevel.base.BasePage;
 import org.alevel.pages.components.Footer;
 import org.alevel.pages.components.Header;

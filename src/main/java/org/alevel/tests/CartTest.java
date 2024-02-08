@@ -27,6 +27,7 @@ public class CartTest {
         System.setProperty("webdriver.gecko.driver", "C:\\driver\\geckodriver.exe");
         FirefoxOptions options = new FirefoxOptions();
         options.setBinary("C:\\Program Files\\Mozilla Firefox\\firefox.exe");
+        options.addArguments("--headless");
         driver = new FirefoxDriver(options); // Инициализация драйвера
         driver.get("https://yaposhka.com.ua/ua/");
     }

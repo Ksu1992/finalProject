@@ -1,5 +1,4 @@
 package org.alevel.pages.components;
-
 import org.alevel.base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

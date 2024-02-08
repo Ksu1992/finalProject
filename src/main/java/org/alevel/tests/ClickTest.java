@@ -25,6 +25,7 @@ public class ClickTest {
         System.setProperty("webdriver.gecko.driver", "C:\\driver\\geckodriver.exe");
         FirefoxOptions options = new FirefoxOptions();
         options.setBinary("C:\\Program Files\\Mozilla Firefox\\firefox.exe");
+        options.addArguments("--headless");
         driver = new FirefoxDriver(options);
         driver.manage().window().maximize();
         homePage = new HomePage(driver);

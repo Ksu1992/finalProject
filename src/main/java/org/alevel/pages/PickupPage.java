@@ -1,5 +1,4 @@
 package org.alevel.pages;
-
 import org.alevel.base.BasePage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
