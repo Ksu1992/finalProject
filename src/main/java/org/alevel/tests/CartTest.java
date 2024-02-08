@@ -23,7 +23,7 @@ public class CartTest {
 
     @BeforeMethod
     public void setUp() {
-        System.setProperty("web-driver.firefox.driver", "path/to/firefox driver");
+        System.setProperty("webdriver.gecko.driver", "C:\\Users\\Kseniia\\.cache\\selenium\\geckodriver\\win64\\0.33.0C\\geckodriver.exe");
         driver = new FirefoxDriver(); // Инициализация драйвера
         driver.get("https://yaposhka.com.ua/ua/");
     }
@@ -48,7 +48,7 @@ public class CartTest {
     public void testAddToCart(String categoryName, String productName) {
         ProductPage productPage = new ProductPage(driver);
         CartPage cartPage = new CartPage(driver);
-        PopupPage popupPage = new PopupPage(driver);
+        //PopupPage popupPage = new PopupPage(driver);
 
         productPage.navigateToProductPage(categoryName, productName);
         productPage.addToCart();
@@ -56,7 +56,7 @@ public class CartTest {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement orderButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='product-addtocart-button']")));
         orderButton.click();
-        popupPage.closePopupIfPresent();
+        //popupPage.closePopupIfPresent();
 
         // Проверка, что товар добавлен в корзину.
         WebElement qtyElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='counter qty']")));
@@ -64,7 +64,7 @@ public class CartTest {
         System.out.println(itemCount);
         Assert.assertNotEquals(itemCount, "0", "Cart is empty, but should have items.");
 
-        driver.navigate().refresh();
+        //driver.navigate().refresh();
 
         // Повторный поиск кнопки заказа после обновления страницы
         WebElement orderButtonAfterRefresh = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='product-addtocart-button']")));

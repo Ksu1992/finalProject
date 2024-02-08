@@ -18,8 +18,9 @@ public class CarouselTest extends BasePage {
 
     @BeforeTest
     public void setUp() {
+        System.setProperty("webdriver.gecko.driver", "C:\\Users\\Kseniia\\.cache\\selenium\\geckodriver\\win64\\0.33.0C\\geckodriver.exe");
         driver = new FirefoxDriver();
-        System.setProperty("web-driver.firefox.driver", "path/to/firefox driver");
+
     }
 
     @Test

@@ -21,7 +21,8 @@ public class ClickTest {
 
     @BeforeMethod
     public void setUp() {
-        System.setProperty("web-driver.firefox.driver", "path/to/firefox driver");
+        System.setProperty("webdriver.gecko.driver", "C:\\Users\\Kseniia\\.cache\\selenium\\geckodriver\\win64\\0.33.0C\\geckodriver.exe");
+
         // Инициализация WebDriver и настройка необходимых параметров
         driver = new FirefoxDriver();
         //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));

@@ -25,7 +25,7 @@ public class PickupTest {
 
     @BeforeMethod
     public void setUp() {
-        System.setProperty("web-driver.firefox.driver", "path/to/firefox driver");
+        System.setProperty("webdriver.gecko.driver", "C:\\Users\\Kseniia\\.cache\\selenium\\geckodriver\\win64\\0.33.0C\\geckodriver.exe");
         driver = new FirefoxDriver(); // Инициализация драйвера
         driver.get("https://yaposhka.com.ua/ua/");
     }
