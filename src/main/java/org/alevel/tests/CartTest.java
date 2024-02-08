@@ -1,6 +1,6 @@
 package org.alevel.tests;
-
 import org.alevel.base.BasePage;
+import org.alevel.base.DriverFactory;
 import org.alevel.pages.CartPage;
 import org.alevel.pages.ProductPage;
 import org.alevel.pages.components.PopupPage;
@@ -14,7 +14,6 @@ import org.testng.annotations.Test;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
-
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -24,11 +23,12 @@ public class CartTest {
 
     @BeforeMethod
     public void setUp() {
-        System.setProperty("webdriver.gecko.driver", "C:\\driver\\geckodriver.exe");
-        FirefoxOptions options = new FirefoxOptions();
-        options.setBinary("C:\\Program Files\\Mozilla Firefox\\firefox.exe");
-        options.addArguments("--headless");
-        driver = new FirefoxDriver(options); // Инициализация драйвера
+//        System.setProperty("webdriver.gecko.driver", "C:\\driver\\geckodriver.exe");
+//        FirefoxOptions options = new FirefoxOptions();
+//        options.setBinary("C:\\Program Files\\Mozilla Firefox\\firefox.exe");
+//        options.addArguments("--headless");
+//        driver = new FirefoxDriver(options); // Инициализация драйвера
+        driver = DriverFactory.createFirefoxDriver();
         driver.get("https://yaposhka.com.ua/ua/");
     }
 
@@ -73,10 +73,6 @@ public class CartTest {
         // Повторный поиск кнопки заказа после обновления страницы
         WebElement orderButtonAfterRefresh = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='product-addtocart-button']")));
     }
-
-
-
-
 
     @Test(dataProvider = "productData")
     public void testChangeItemQuantityInCart(String categoryName, String productName) throws InterruptedException {

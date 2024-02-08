@@ -1,4 +1,5 @@
 package org.alevel.tests;
+import org.alevel.base.DriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -20,11 +21,12 @@ public class FeedbackFormTest {
 
     @BeforeMethod
     public void setUp() {
-        System.setProperty("webdriver.gecko.driver", "C:\\driver\\geckodriver.exe");
-        FirefoxOptions options = new FirefoxOptions();
-        options.setBinary("C:\\Program Files\\Mozilla Firefox\\firefox.exe");
-        options.addArguments("--headless");
-        driver = new FirefoxDriver(options);
+//        System.setProperty("webdriver.gecko.driver", "C:\\driver\\geckodriver.exe");
+//        FirefoxOptions options = new FirefoxOptions();
+//        options.setBinary("C:\\Program Files\\Mozilla Firefox\\firefox.exe");
+//        options.addArguments("--headless");
+//        driver = new FirefoxDriver(options);
+        driver = DriverFactory.createFirefoxDriver();
         driver.get("https://yaposhka.com.ua/");
     }
 

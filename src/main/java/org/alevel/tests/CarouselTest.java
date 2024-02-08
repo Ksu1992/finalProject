@@ -1,4 +1,5 @@
 package org.alevel.tests;
+import org.alevel.base.DriverFactory;
 import org.alevel.base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -19,11 +20,7 @@ public class CarouselTest extends BasePage {
 
     @BeforeTest
     public void setUp() {
-        System.setProperty("webdriver.gecko.driver", "C:\\driver\\geckodriver.exe");
-        FirefoxOptions options = new FirefoxOptions();
-        options.setBinary("C:\\Program Files\\Mozilla Firefox\\firefox.exe");
-        options.addArguments("--headless");
-        driver = new FirefoxDriver(options);
+        driver = DriverFactory.createFirefoxDriver();
     }
 
     @Test

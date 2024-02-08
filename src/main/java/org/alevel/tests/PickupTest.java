@@ -1,7 +1,6 @@
 package org.alevel.tests;
-
+import org.alevel.base.DriverFactory;
 import org.alevel.pages.CartPage;
-
 import org.alevel.pages.PickupPage;
 import org.alevel.pages.ProductPage;
 import org.openqa.selenium.By;
@@ -26,11 +25,12 @@ public class PickupTest {
 
     @BeforeMethod
     public void setUp() {
-        System.setProperty("webdriver.gecko.driver", "C:\\driver\\geckodriver.exe");
-        FirefoxOptions options = new FirefoxOptions();
-        options.setBinary("C:\\Program Files\\Mozilla Firefox\\firefox.exe");
-        options.addArguments("--headless");
-        driver = new FirefoxDriver(options);
+//        System.setProperty("webdriver.gecko.driver", "C:\\driver\\geckodriver.exe");
+//        FirefoxOptions options = new FirefoxOptions();
+//        options.setBinary("C:\\Program Files\\Mozilla Firefox\\firefox.exe");
+//        options.addArguments("--headless");
+//        driver = new FirefoxDriver(options);
+        driver = DriverFactory.createFirefoxDriver();
         driver.get("https://yaposhka.com.ua/ua/");
     }
 
