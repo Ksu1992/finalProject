@@ -9,14 +9,15 @@ import org.openqa.selenium.NoSuchElementException;
 public class Header {
     private WebDriver driver;
 
-    @FindBy(xpath = "//span[contains(text(), 'Піца') or contains(text(), 'Pizza') or contains(text(), 'Пицца')]")
-    private WebElement pizzaMenuLink;
 
+    @FindBy(xpath = "//span[contains(text(), 'Супи') or contains(text(), 'Soups') or contains(text(), 'Супы')]")
+    private WebElement soupsMenuLink;
     @FindBy(xpath = "//span[contains(text(), 'Салати') or contains(text(), 'Salads') or contains(text(), 'Салаты')]")
     private WebElement saladsMenuLink;
 
-    @FindBy(xpath = "//span[contains(text(), 'Бургери') or contains(text(), 'Burgers') or contains(text(), 'Бургеры')]")
-    private WebElement burgersMenuLink;
+
+    @FindBy(xpath = "//span[contains(text(), 'Від шефа')]")
+    private WebElement fromShefMenuLink;
 
     public Header(WebDriver driver) {
         this.driver = driver;
@@ -41,20 +42,20 @@ public class Header {
 
     public void clickOnCategory(String categoryName) {
         switch (categoryName.toLowerCase()) {
-            case "pizza":
-            case "пицца":
-            case "піца":
-                clickMenuLink(pizzaMenuLink, categoryName);
+            case "soups":
+            case "супы":
+            case "супи":
+                clickMenuLink(soupsMenuLink, categoryName);
                 break;
             case "salads":
             case "салаты":
             case "салати":
                 clickMenuLink(saladsMenuLink, categoryName);
                 break;
-            case "burgers":
-            case "бургеры":
-            case "бургери":
-                clickMenuLink(burgersMenuLink, categoryName);
+            case "special":
+            case "от шефа":
+            case "від шефа":
+                clickMenuLink(fromShefMenuLink, categoryName);
                 break;
             default:
                 System.out.println("Category not recognized: " + categoryName);

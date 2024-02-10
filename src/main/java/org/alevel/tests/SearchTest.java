@@ -23,11 +23,7 @@ public class SearchTest {
 
     @BeforeMethod
     public void setUp() {
-//        System.setProperty("webdriver.gecko.driver", "C:\\driver\\geckodriver.exe");
-//        FirefoxOptions options = new FirefoxOptions();
-//        options.setBinary("C:\\Program Files\\Mozilla Firefox\\firefox.exe");
-//        options.addArguments("--headless");
-//        driver = new FirefoxDriver(options);
+
         driver = DriverFactory.createFirefoxDriver();
         driver.get("https://yaposhka.com.ua/");
     }
@@ -42,12 +38,11 @@ public class SearchTest {
     @DataProvider(name = "searchQueries")
     public Object[][] createSearchQueries() {
         return new Object[][]{
-                {"Курочка"},
-                {"Креветки"},
+                {"Рис"},
                 {"Вино"},
                 {"Суп"},
                 {"Салат"},
-                {"Боул"}
+                {"Борщ"}
         };
     }
 

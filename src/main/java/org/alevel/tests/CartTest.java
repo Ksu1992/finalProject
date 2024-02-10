@@ -42,9 +42,9 @@ public class CartTest {
     @DataProvider(name = "productData")
     public Object[][] createProductData() {
         return new Object[][]{
-                {"Піца", "Піца з морепродуктами"},
+                {"Супи", "Рамен з морепродуктами"},
                 {"Салати", "Зелений салат з горіховим соусом"},
-                {"Бургери", "З куркою та беконовим джемом"}
+                {"Від шефа", "Боул з куркою Кацу"}
         };
     }
 
@@ -78,11 +78,11 @@ public class CartTest {
     public void testChangeItemQuantityInCart(String categoryName, String productName) throws InterruptedException {
         ProductPage productPage = new ProductPage(driver);
         CartPage cartPage = new CartPage(driver);
-        PopupPage popupPage = new PopupPage(driver);
+
 
         productPage.navigateToProductPage(categoryName, productName);
         productPage.addToCart();
-        popupPage.closePopupIfPresent();
+
 
         // Создание экземпляра Actions
         Actions actions = new Actions(driver);

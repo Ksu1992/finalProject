@@ -21,14 +21,7 @@ public class HomePageTest {
 
     @BeforeMethod
     public void setUp() {
-//        System.setProperty("webdriver.gecko.driver", "C:\\driver\\geckodriver.exe");
-//        FirefoxOptions options = new FirefoxOptions();
-//        options.setBinary("C:\\Program Files\\Mozilla Firefox\\firefox.exe");
-//        options.addArguments("--headless");
-//        driver = new FirefoxDriver(options);
-//        driver.get("https://yaposhka.com.ua");
-//        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//        homePage = new HomePage(driver);
+
         driver = DriverFactory.createFirefoxDriver();
         driver.get("https://yaposhka.com.ua/");
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));

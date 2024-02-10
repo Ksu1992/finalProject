@@ -7,8 +7,6 @@ import org.alevel.pages.components.PopupPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -24,11 +22,7 @@ public class OrderTest {
 
     @BeforeMethod
     public void setUp() {
-//        System.setProperty("webdriver.gecko.driver", "C:\\driver\\geckodriver.exe");
-//        FirefoxOptions options = new FirefoxOptions();
-//        options.setBinary("C:\\Program Files\\Mozilla Firefox\\firefox.exe");
-//        options.addArguments("--headless");
-//        driver = new FirefoxDriver(options);
+
         driver = DriverFactory.createFirefoxDriver();
         driver.get("https://yaposhka.com.ua/ua/");
     }
@@ -43,9 +37,9 @@ public class OrderTest {
     @DataProvider(name = "productData")
     public Object[][] createProductData() {
         return new Object[][]{
-               // {"Піца", "Піца з морепродуктами"},
+                {"Супи", "Рамен з морепродуктами"},
                 {"Салати", "Зелений салат з горіховим соусом"},
-                {"Бургери", "З куркою та беконовим джемом"}
+                {"Від шефа", "Боул з куркою Кацу"}
         };
     }
 
@@ -72,14 +66,16 @@ public class OrderTest {
         actions.moveToElement(headerElement).perform();
 
         // Клик на кнопку оформления заказа
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         WebElement orderButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='top-cart-btn-checkout']")));
         orderButton.click();
 
+
         // Ожидание видимости элемента на странице оформления заказа
-        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(50));
 
         checkoutPage.fillShippingInformation("Ксения", "973944987", "Харків,Натальї Ужвій,64", "3", "116", "7", "345", "portmone");
         checkoutPage.assertOrderFields();
+
     }
 }

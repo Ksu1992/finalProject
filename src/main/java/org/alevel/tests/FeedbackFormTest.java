@@ -21,11 +21,7 @@ public class FeedbackFormTest {
 
     @BeforeMethod
     public void setUp() {
-//        System.setProperty("webdriver.gecko.driver", "C:\\driver\\geckodriver.exe");
-//        FirefoxOptions options = new FirefoxOptions();
-//        options.setBinary("C:\\Program Files\\Mozilla Firefox\\firefox.exe");
-//        options.addArguments("--headless");
-//        driver = new FirefoxDriver(options);
+
         driver = DriverFactory.createFirefoxDriver();
         driver.get("https://yaposhka.com.ua/");
     }
@@ -33,7 +29,7 @@ public class FeedbackFormTest {
     @DataProvider(name = "feedbackFormData")
     public Object[][] feedbackFormData() {
         return new Object[][]{
-                {"John Doe", "974566574", "Hello, this is my feedback message."}
+                {"Маша Іванова", "974566574", "Hello, this is my feedback message."}
                 // Добавьте другие тестовые данные по необходимости
         };
     }

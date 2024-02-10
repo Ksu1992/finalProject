@@ -25,11 +25,7 @@ public class PickupTest {
 
     @BeforeMethod
     public void setUp() {
-//        System.setProperty("webdriver.gecko.driver", "C:\\driver\\geckodriver.exe");
-//        FirefoxOptions options = new FirefoxOptions();
-//        options.setBinary("C:\\Program Files\\Mozilla Firefox\\firefox.exe");
-//        options.addArguments("--headless");
-//        driver = new FirefoxDriver(options);
+
         driver = DriverFactory.createFirefoxDriver();
         driver.get("https://yaposhka.com.ua/ua/");
     }
@@ -44,9 +40,9 @@ public class PickupTest {
     @DataProvider(name = "productData")
     public Object[][] createProductData() {
         return new Object[][]{
-                {"Піца", "Піца з морепродуктами"},
+                {"Супи", "Рамен з морепродуктами"},
                 {"Салати", "Зелений салат з горіховим соусом"},
-                {"Бургери", "З куркою та беконовим джемом"}
+                {"Від шефа", "Боул з куркою Кацу"}
         };
     }
 
