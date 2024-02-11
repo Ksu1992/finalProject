@@ -1,28 +1,16 @@
 package org.alevel.pages;
-
 import org.alevel.base.BasePage;
 import org.alevel.pages.components.Footer;
 import org.alevel.pages.components.Header;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 
 public class HomePage extends BasePage {
-
-    // Локаторы
-    private By logoLocator = By.xpath("//a[@class='logo']");
-    private By navigationMenuLocator = By.xpath("//div[@class='header-menu-container']");
-    private By homePageLocator = By.xpath("//div[@class='page-footer']");
-    private By forUsLocator = By.xpath("//div[@class='footer-block footer-list footer-pages-nav']");
-    private By restorans = By.cssSelector("li.level0.ui-menu-item:nth-of-type(1) > a.menu-item.level-top");
-    private By contactsLocator = By.xpath("//div[@class='footer-block footer-list contacts-column']");
-    private By searchBoxLocator = By.xpath("//div[@class='search-container']");
-    private By popularProductsListLocator = By.xpath("//div[contains(@class, 'home-category-favorites-container')]");
-
     // Footer и Header
     private Footer footer;
     private Header header;
@@ -55,7 +43,7 @@ public class HomePage extends BasePage {
     }
 
     public boolean isProductCatalogDisplayed() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(restorans)).isDisplayed();
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(restorationsLocator)).isDisplayed();
     }
 
     public boolean isContactsDisplayed() {
@@ -63,11 +51,16 @@ public class HomePage extends BasePage {
     }
 
     public boolean isSearchBoxDisplayed() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(searchBoxLocator)).isDisplayed();
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(searchBoxContainerLocator)).isDisplayed();
     }
 
     public boolean isPopularProductsListDisplayed() {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(popularProductsListLocator)).isDisplayed();
+    }
+
+    public WebElement waitForElementVisibility(By locator) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
     // Геттеры для локаторов
@@ -88,7 +81,7 @@ public class HomePage extends BasePage {
     }
 
     public By getProductCatalogLocator() {
-        return restorans;
+        return restorationsLocator;
     }
 
     public By getContactsLocator() {
@@ -128,7 +121,7 @@ public class HomePage extends BasePage {
     }
 
     public void clickOnProductCatalog() {
-        clickOnElementUsingActions(restorans);
+        clickOnElementUsingActions(restorationsLocator);
     }
 
     public void clickOnContacts() {

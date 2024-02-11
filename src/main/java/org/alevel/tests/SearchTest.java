@@ -1,21 +1,9 @@
 package org.alevel.tests;
 import org.alevel.pages.SearchPage;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class SearchTest extends BaseTest {
-    @DataProvider(name = "searchQueries")
-    public Object[][] createSearchQueries() {
-        return new Object[][]{
-                {"Рис"},
-                {"Вино"},
-                {"Суп"},
-                {"Салат"},
-                {"Борщ"}
-        };
-    }
-
     @Test(dataProvider = "searchQueries")
     public void testSearch(String query) {
         SearchPage searchPage = new SearchPage(driver);

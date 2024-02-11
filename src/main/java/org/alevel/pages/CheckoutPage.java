@@ -1,7 +1,7 @@
 package org.alevel.pages;
-
 import org.alevel.base.BasePage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -48,22 +48,38 @@ public class CheckoutPage extends BasePage {
         // Ожидание устаревания элемента
         wait.until(ExpectedConditions.stalenessOf(option));
 
-        // Поиск элемента после перехода на новую страницу
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
         WebElement entranceInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='custom_attributes[courier_entrance]']")));
-        entranceInput.sendKeys(entrance);
+        js.executeScript(
+                "arguments[0].value=arguments[1];" +
+                        "arguments[0].dispatchEvent(new Event('change', { 'bubbles': true }));",
+                entranceInput, entrance
+        );
 
         WebElement apartmentInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='custom_attributes[courier_apartment]']")));
-        apartmentInput.sendKeys(apartment);
+        js.executeScript(
+                "arguments[0].value=arguments[1];" +
+                        "arguments[0].dispatchEvent(new Event('change', { 'bubbles': true }));",
+                apartmentInput, apartment
+        );
 
         WebElement floorInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='custom_attributes[courier_floor]']")));
-        floorInput.sendKeys(floor);
+        js.executeScript(
+                "arguments[0].value=arguments[1];" +
+                        "arguments[0].dispatchEvent(new Event('change', { 'bubbles': true }));",
+                floorInput, floor
+        );
 
         WebElement intercomCodeInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='custom_attributes[courier_intercom_code]']")));
-        intercomCodeInput.sendKeys(intercomCode);
+        js.executeScript(
+                "arguments[0].value=arguments[1];" +
+                        "arguments[0].dispatchEvent(new Event('change', { 'bubbles': true }));",
+                intercomCodeInput, intercomCode
+        );
 
         WebElement paymentMethodsInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='portmone']")));
         paymentMethodsInput.click();
-
     }
 
 
@@ -123,7 +139,5 @@ public class CheckoutPage extends BasePage {
 
     public void assertOrderFields() {
         Assert.assertFalse(getFullName().isEmpty(), "Поле 'Имя' не заполнено");
-        //Assert.assertFalse(getPhone().isEmpty(), "Поле 'Телефон' не заполнено");
-        // Assert.assertFalse(getAddress
     }
 }

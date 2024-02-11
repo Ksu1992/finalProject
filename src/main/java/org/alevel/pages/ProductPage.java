@@ -10,9 +10,6 @@ import java.time.Duration;
 
 public class ProductPage extends BasePage {
     private Header header;
-    private By addToCartButton = By.xpath("//button[@id='product-addtocart-button']");
-    private By confirmationMessage = By.xpath("//div[@class='minicart-header grid-extend']");
-    private By orderButton = By.xpath("//button[@id='top-cart-btn-checkout']");
 
     public ProductPage(WebDriver driver) {
         super(driver);
@@ -29,13 +26,13 @@ public class ProductPage extends BasePage {
 
     public void addToCart() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-        WebElement addToCartBtn = wait.until(ExpectedConditions.elementToBeClickable(addToCartButton));
+        WebElement addToCartBtn = wait.until(ExpectedConditions.elementToBeClickable(addToCartButtonLocator));
         addToCartBtn.click();
     }
 
     public void clickOrderButton() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement orderBtn = wait.until(ExpectedConditions.elementToBeClickable(orderButton));
+        WebElement orderBtn = wait.until(ExpectedConditions.elementToBeClickable(orderButtonLocator));
         orderBtn.click();
     }
 }

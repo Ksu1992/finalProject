@@ -1,29 +1,20 @@
 package org.alevel.pages;
-
 import org.alevel.base.BasePage;
-import org.alevel.base.DriverFactory;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 import java.util.List;
 
 public class SearchPage extends BasePage {
-
-    // Локаторы для поисковой строки и результатов поиска
-    private By searchBoxLocator = By.xpath("//input[@id='search']");
-    private By searchResultsLocator = By.xpath("//span[@class='base']");
-
     public SearchPage(WebDriver driver) {
         super(driver);
     }
 
     public void searchFor(String query) {
         // Найти иконку поиска и кликнуть по ней
-        WebElement searchIcon = driver.findElement(By.xpath("//form[@id='search_mini_form']"));
+        WebElement searchIcon = driver.findElement(searchIconLocator);
         searchIcon.click();
 
         // Ожидание видимости поля поиска
