@@ -1,32 +1,16 @@
 package org.alevel.tests;
-import org.alevel.base.DriverFactory;
-import org.alevel.base.BasePage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import java.time.Duration;
 import java.util.List;
 
-public class CarouselTest extends BasePage {
-    private WebDriver driver;
-
-    @BeforeTest
-    public void setUp() {
-        driver = DriverFactory.createFirefoxDriver();
-    }
-
+public class CarouselTest extends BaseTest {
     @Test
     public void testCarousel() {
-        driver.get("https://yaposhka.com.ua/ua/");
-
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
         // Ожидание видимости блока с каруселью
@@ -67,12 +51,5 @@ public class CarouselTest extends BasePage {
         // Проверяем, что количество неактивных элементов соответствует ожидаемому
         List<WebElement> inactiveDots = carouselBlock.findElements(By.xpath("//button[@class='owl-dot' and not(@class='owl-dot active')]"));
         Assert.assertEquals(inactiveDots.size(), expectedInactiveDots, "Неверное количество неактивных элементов в карусели");
-    }
-
-    @AfterTest
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
     }
 }

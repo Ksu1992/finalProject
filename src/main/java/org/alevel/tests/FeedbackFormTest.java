@@ -1,31 +1,15 @@
 package org.alevel.tests;
-import org.alevel.base.DriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import java.time.Duration;
 
-public class FeedbackFormTest {
-
-    private WebDriver driver;
-
-    @BeforeMethod
-    public void setUp() {
-
-        driver = DriverFactory.createFirefoxDriver();
-        driver.get("https://yaposhka.com.ua/");
-    }
-
+public class FeedbackFormTest extends BaseTest {
     @DataProvider(name = "feedbackFormData")
     public Object[][] feedbackFormData() {
         return new Object[][]{
@@ -66,14 +50,6 @@ public class FeedbackFormTest {
         // Assert for comment input
         String commentValue = commentInput.getAttribute("value");
         Assert.assertEquals(commentValue, message, "Comment input value is incorrect");
-    }
-
-    @AfterMethod
-    public void tearDown() {
-        // Закрываем браузер после каждого теста
-        if (driver != null) {
-            driver.quit();
-        }
     }
     public static String formatPhoneNumber(String digits) {
         // Check if the input has the correct length

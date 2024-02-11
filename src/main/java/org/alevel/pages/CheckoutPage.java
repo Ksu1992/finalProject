@@ -127,4 +127,3 @@ public class CheckoutPage extends BasePage {
         // Assert.assertFalse(getAddress
     }
 }
-

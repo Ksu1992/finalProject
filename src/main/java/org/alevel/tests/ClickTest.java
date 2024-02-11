@@ -1,39 +1,14 @@
 package org.alevel.tests;
-
-import org.alevel.base.DriverFactory;
 import org.alevel.pages.HomePage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
 import java.time.Duration;
 
-public class ClickTest {
-
-    private WebDriver driver;
-    private HomePage homePage;
-
-    @BeforeMethod
-    public void setUp() {
-        driver = DriverFactory.createFirefoxDriver();
-        driver.manage().window().maximize();
-        homePage = new HomePage(driver);
-        driver.get("https://yaposhka.com.ua/ua/");
-    }
-
-    @AfterMethod
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
-
+public class ClickTest extends BaseTest {
     @DataProvider(name = "linksProvider")
     public Object[][] createData() {
         return new Object[][]{
@@ -45,6 +20,7 @@ public class ClickTest {
 
     @Test(dataProvider = "linksProvider")
     public void testElementClick(String elementName, By locator, String expectedUrlStartsWith, By uniqueElementLocator) {
+        HomePage homePage = new HomePage(driver);
         homePage.clickOnElementUsingActions(locator);
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));

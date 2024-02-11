@@ -1,31 +1,10 @@
 package org.alevel.tests;
-
-import org.alevel.base.DriverFactory;
 import org.alevel.pages.SearchPage;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class SearchTest {
-
-    private WebDriver driver;
-
-    @BeforeMethod
-    public void setUp() {
-        driver = DriverFactory.createFirefoxDriver();
-        driver.get("https://yaposhka.com.ua/");
-    }
-
-    @AfterMethod
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
-
+public class SearchTest extends BaseTest {
     @DataProvider(name = "searchQueries")
     public Object[][] createSearchQueries() {
         return new Object[][]{

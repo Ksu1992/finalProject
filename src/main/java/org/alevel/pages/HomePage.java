@@ -37,37 +37,37 @@ public class HomePage extends BasePage {
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    // Методы для проверки наличия элементов с ожиданиями
+    // Методы для проверки наличия элементов
     public boolean isLogoDisplayed() {
-        return waitForVisibilityOfElementLocated(logoLocator).isDisplayed();
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(logoLocator)).isDisplayed();
     }
 
     public boolean isNavigationMenuDisplayed() {
-        return waitForVisibilityOfElementLocated(navigationMenuLocator).isDisplayed();
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(navigationMenuLocator)).isDisplayed();
     }
 
     public boolean isHomePageDisplayed() {
-        return waitForVisibilityOfElementLocated(homePageLocator).isDisplayed();
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(homePageLocator)).isDisplayed();
     }
 
     public boolean isForUsDisplayed() {
-        return waitForVisibilityOfElementLocated(forUsLocator).isDisplayed();
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(forUsLocator)).isDisplayed();
     }
 
     public boolean isProductCatalogDisplayed() {
-        return waitForVisibilityOfElementLocated(restorans).isDisplayed();
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(restorans)).isDisplayed();
     }
 
     public boolean isContactsDisplayed() {
-        return waitForVisibilityOfElementLocated(contactsLocator).isDisplayed();
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(contactsLocator)).isDisplayed();
     }
 
     public boolean isSearchBoxDisplayed() {
-        return waitForVisibilityOfElementLocated(searchBoxLocator).isDisplayed();
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(searchBoxLocator)).isDisplayed();
     }
 
     public boolean isPopularProductsListDisplayed() {
-        return waitForVisibilityOfElementLocated(popularProductsListLocator).isDisplayed();
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(popularProductsListLocator)).isDisplayed();
     }
 
     // Геттеры для локаторов
@@ -112,7 +112,7 @@ public class HomePage extends BasePage {
     // Методы для взаимодействия с элементами через Actions
     public void clickOnElementUsingActions(By locator) {
         Actions actions = new Actions(driver);
-        actions.moveToElement(waitForVisibilityOfElementLocated(locator)).click().perform();
+        actions.moveToElement(driver.findElement(locator)).click().perform();
     }
 
     public void clickOnNavigationMenu() {
@@ -141,10 +141,5 @@ public class HomePage extends BasePage {
 
     public void clickOnPopularProductsList() {
         clickOnElementUsingActions(popularProductsListLocator);
-    }
-
-    // Метод для ожидания видимости элемента
-    private org.openqa.selenium.WebElement waitForVisibilityOfElementLocated(By locator) {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 }
