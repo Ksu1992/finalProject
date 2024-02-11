@@ -1,62 +1,62 @@
 package org.alevel.pages;
+
 import org.alevel.base.BasePage;
+import org.alevel.base.DriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
 import java.util.List;
 
 public class SearchPage extends BasePage {
-    // Локатор для поисковой строки
-    private By searchBoxLocator = By.name("Search");
-    // Локатор для результатов поиска
+
+    // Локаторы для поисковой строки и результатов поиска
+    private By searchBoxLocator = By.xpath("//input[@id='search']");
     private By searchResultsLocator = By.xpath("//span[@class='base']");
 
     public SearchPage(WebDriver driver) {
         super(driver);
     }
 
-    public static boolean areSearchResultsDisplayed(WebDriver driver, By locator) {
-        // Проверяем, отображаются ли элементы на странице
-        try {
-            return driver.findElements(locator).size() > 0;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    public static boolean areSearchResultsMatchingQuery(WebDriver driver, By locator, String query) {
-        // Проверяем, соответствуют ли результаты поиска заданному запросу
-        try {
-            List<WebElement> searchResults = driver.findElements(locator);
-            for (WebElement result : searchResults) {
-                if (result.getText().toLowerCase().contains(query.toLowerCase())) {
-                    return true;
-                }
-            }
-            return false;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
     public void searchFor(String query) {
-        // Найти элемент поисковой строки и ввести запрос
-        WebElement searchBox = driver.findElement(searchBoxLocator);
-        searchBox.clear();
-        searchBox.sendKeys(query);
-        searchBox.submit(); // Или использовать sendKeys(Keys.RETURN);
+        // Найти иконку поиска и кликнуть по ней
+        WebElement searchIcon = driver.findElement(By.xpath("//form[@id='search_mini_form']"));
+        searchIcon.click();
 
-        // Добавьте необходимое ожидание для загрузки результатов поиска
-        new WebDriverWait(driver, Duration.ofSeconds(10)).until(
-                ExpectedConditions.visibilityOfElementLocated(searchResultsLocator)
-        );
+        // Ожидание видимости поля поиска
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebElement searchBox = wait.until(ExpectedConditions.visibilityOfElementLocated(searchBoxLocator));
+
+        // Ввод запроса и выполнение поиска
+        searchBox.sendKeys(query);
+        searchBox.submit();
+
+        // Ожидание загрузки результатов поиска
+        wait.until(ExpectedConditions.urlContains("q="));
     }
 
-    public List<WebElement> getSearchResults() {
-        // Получить результаты поиска
-        return driver.findElements(searchResultsLocator);
+    public boolean areSearchResultsDisplayed() {
+        // Ожидание видимости результатов поиска
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(searchResultsLocator));
+
+        // Проверка, отображаются ли результаты поиска
+        List<WebElement> searchResults = driver.findElements(searchResultsLocator);
+        return !searchResults.isEmpty();
+    }
+
+    public boolean areSearchResultsMatchingQuery(String query) {
+        // Проверка, соответствуют ли результаты поиска запросу
+        List<WebElement> searchResults = driver.findElements(searchResultsLocator);
+        for (WebElement result : searchResults) {
+            if (!result.getText().toLowerCase().contains(query.toLowerCase())) {
+                return false;
+            }
+        }
+        return true;
     }
 }
+

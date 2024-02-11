@@ -7,6 +7,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
 public class DriverFactory {
+    public DriverFactory(WebDriver driver) {
+    }
+
     public static WebDriver createFirefoxDriver() {
         System.setProperty("webdriver.gecko.driver", "C:\\driver\\geckodriver.exe");
         FirefoxOptions options = new FirefoxOptions();

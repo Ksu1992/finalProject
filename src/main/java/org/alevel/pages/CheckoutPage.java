@@ -1,4 +1,5 @@
 package org.alevel.pages;
+
 import org.alevel.base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,8 +13,7 @@ public class CheckoutPage extends BasePage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-
-    public CheckoutPage(WebDriver driver) {
+    public CheckoutPage(WebDriver driver, WebDriverWait wait) {
         super(driver);
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(40));
@@ -124,8 +124,7 @@ public class CheckoutPage extends BasePage {
     public void assertOrderFields() {
         Assert.assertFalse(getFullName().isEmpty(), "Поле 'Имя' не заполнено");
         //Assert.assertFalse(getPhone().isEmpty(), "Поле 'Телефон' не заполнено");
-        // Assert.assertFalse(getAddress().isEmpty(), "Поле 'Адреса' не заполнено");
-
+        // Assert.assertFalse(getAddress
     }
 }
 

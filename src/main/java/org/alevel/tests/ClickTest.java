@@ -1,9 +1,9 @@
 package org.alevel.tests;
+
 import org.alevel.base.DriverFactory;
 import org.alevel.pages.HomePage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -11,8 +11,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
 import java.time.Duration;
-import org.openqa.selenium.By;
 
 public class ClickTest {
 
@@ -21,7 +21,6 @@ public class ClickTest {
 
     @BeforeMethod
     public void setUp() {
-
         driver = DriverFactory.createFirefoxDriver();
         driver.manage().window().maximize();
         homePage = new HomePage(driver);
@@ -30,7 +29,6 @@ public class ClickTest {
 
     @AfterMethod
     public void tearDown() {
-        // Закрытие браузера после каждого теста
         if (driver != null) {
             driver.quit();
         }
@@ -44,13 +42,13 @@ public class ClickTest {
                 {"Бонуси", By.cssSelector("li.level0.ui-menu-item:nth-of-type(3) > a.menu-item.level-top"), "https://yaposhka.com.ua/", By.xpath("//span[@class='base']")}
         };
     }
+
     @Test(dataProvider = "linksProvider")
     public void testElementClick(String elementName, By locator, String expectedUrlStartsWith, By uniqueElementLocator) {
-        homePage = new HomePage(driver);
         homePage.clickOnElementUsingActions(locator);
 
-        new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.visibilityOfElementLocated(uniqueElementLocator));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(uniqueElementLocator));
 
         String actualUrl = driver.getCurrentUrl();
         Assert.assertTrue(actualUrl.startsWith(expectedUrlStartsWith), "URL не начинается с ожидаемого: " + expectedUrlStartsWith + " после клика на " + elementName);

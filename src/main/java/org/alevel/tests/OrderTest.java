@@ -1,9 +1,9 @@
 package org.alevel.tests;
+
 import org.alevel.base.DriverFactory;
 import org.alevel.pages.CartPage;
 import org.alevel.pages.CheckoutPage;
 import org.alevel.pages.ProductPage;
-import org.alevel.pages.components.PopupPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -19,12 +19,13 @@ import java.time.Duration;
 public class OrderTest {
 
     private WebDriver driver;
+    private WebDriverWait wait;
 
     @BeforeMethod
     public void setUp() {
-
         driver = DriverFactory.createFirefoxDriver();
         driver.get("https://yaposhka.com.ua/ua/");
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
     @AfterMethod
@@ -43,39 +44,30 @@ public class OrderTest {
         };
     }
 
-
     @Test(dataProvider = "productData")
     public void testPlaceOrder(String categoryName, String productName) throws InterruptedException {
         ProductPage productPage = new ProductPage(driver);
         CartPage cartPage = new CartPage(driver);
-        CheckoutPage checkoutPage = new CheckoutPage(driver);
-       // PopupPage popupPage = new PopupPage(driver);
+        CheckoutPage checkoutPage = new CheckoutPage(driver, wait);
 
         // Навигация на страницу продукта и добавление в корзину
         productPage.navigateToProductPage(categoryName, productName);
         productPage.addToCart();
 
-        // Закрытие всплывающего окна, если оно отображается
-       // popupPage.closePopupIfPresent();
-
         // Создание экземпляра Actions
         Actions actions = new Actions(driver);
 
         // Наведение на элемент, который находится в header
-        WebElement headerElement = driver.findElement(By.xpath("//div[@class='minicart-header grid-extend']"));
+        WebElement headerElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='minicart-header grid-extend']")));
         actions.moveToElement(headerElement).perform();
 
         // Клик на кнопку оформления заказа
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         WebElement orderButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='top-cart-btn-checkout']")));
         orderButton.click();
 
-
         // Ожидание видимости элемента на странице оформления заказа
-        wait = new WebDriverWait(driver, Duration.ofSeconds(50));
-
         checkoutPage.fillShippingInformation("Ксения", "973944987", "Харків,Натальї Ужвій,64", "3", "116", "7", "345", "portmone");
         checkoutPage.assertOrderFields();
-
     }
 }
+

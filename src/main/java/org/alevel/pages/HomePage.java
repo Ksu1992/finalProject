@@ -1,10 +1,15 @@
 package org.alevel.pages;
+
 import org.alevel.base.BasePage;
 import org.alevel.pages.components.Footer;
 import org.alevel.pages.components.Header;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class HomePage extends BasePage {
 
@@ -22,43 +27,47 @@ public class HomePage extends BasePage {
     private Footer footer;
     private Header header;
 
+    // Ожидание
+    private WebDriverWait wait;
+
     public HomePage(WebDriver driver) {
         super(driver);
         footer = new Footer(driver);
         header = new Header(driver);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    // Методы для проверки наличия элементов
+    // Методы для проверки наличия элементов с ожиданиями
     public boolean isLogoDisplayed() {
-        return driver.findElement(logoLocator).isDisplayed();
+        return waitForVisibilityOfElementLocated(logoLocator).isDisplayed();
     }
 
     public boolean isNavigationMenuDisplayed() {
-        return driver.findElement(navigationMenuLocator).isDisplayed();
+        return waitForVisibilityOfElementLocated(navigationMenuLocator).isDisplayed();
     }
 
     public boolean isHomePageDisplayed() {
-        return driver.findElement(homePageLocator).isDisplayed();
+        return waitForVisibilityOfElementLocated(homePageLocator).isDisplayed();
     }
 
     public boolean isForUsDisplayed() {
-        return driver.findElement(forUsLocator).isDisplayed();
+        return waitForVisibilityOfElementLocated(forUsLocator).isDisplayed();
     }
 
     public boolean isProductCatalogDisplayed() {
-        return driver.findElement(restorans).isDisplayed();
+        return waitForVisibilityOfElementLocated(restorans).isDisplayed();
     }
 
     public boolean isContactsDisplayed() {
-        return driver.findElement(contactsLocator).isDisplayed();
+        return waitForVisibilityOfElementLocated(contactsLocator).isDisplayed();
     }
 
     public boolean isSearchBoxDisplayed() {
-        return driver.findElement(searchBoxLocator).isDisplayed();
+        return waitForVisibilityOfElementLocated(searchBoxLocator).isDisplayed();
     }
 
     public boolean isPopularProductsListDisplayed() {
-        return driver.findElement(popularProductsListLocator).isDisplayed();
+        return waitForVisibilityOfElementLocated(popularProductsListLocator).isDisplayed();
     }
 
     // Геттеры для локаторов
@@ -95,8 +104,6 @@ public class HomePage extends BasePage {
     }
 
     // Делегирование вызовов методов Footer и Header
-
-
     public void clickOnHeaderMenu(String menuName) {
         header.clickOnCategory(menuName);
     }
@@ -105,7 +112,7 @@ public class HomePage extends BasePage {
     // Методы для взаимодействия с элементами через Actions
     public void clickOnElementUsingActions(By locator) {
         Actions actions = new Actions(driver);
-        actions.moveToElement(driver.findElement(locator)).click().perform();
+        actions.moveToElement(waitForVisibilityOfElementLocated(locator)).click().perform();
     }
 
     public void clickOnNavigationMenu() {
@@ -135,5 +142,9 @@ public class HomePage extends BasePage {
     public void clickOnPopularProductsList() {
         clickOnElementUsingActions(popularProductsListLocator);
     }
-}
 
+    // Метод для ожидания видимости элемента
+    private org.openqa.selenium.WebElement waitForVisibilityOfElementLocated(By locator) {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+}
