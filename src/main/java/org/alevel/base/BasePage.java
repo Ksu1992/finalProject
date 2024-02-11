@@ -33,6 +33,10 @@ public abstract class BasePage {
     protected By firstNameFeedbackInputLocator = By.xpath("//input[@id='complain_name' and @name='name']");
     protected By phoneFeedbackInputLocator = By.xpath("//input[@id='complain_phone' and @name='telephone']");
     protected By commentFeedbackInputLocator = By.xpath("//textarea[@name='note' and @id='complain_note']");
+    protected By carouselBlockSelectorLocator = By.xpath("//div[@class='page home-page']");
+    protected By carouselDotsSelectorLocator = By.xpath("//div[@class='owl-dots']");
+    protected By activeDotSelectorLocator = By.xpath("//button[@class='owl-dot active']");
+    protected By inactiveDotSelectorLocator = By.xpath("//button[@class='owl-dot' and not(@class='owl-dot active')]");
     public BasePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);

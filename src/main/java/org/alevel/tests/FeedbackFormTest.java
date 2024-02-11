@@ -10,17 +10,14 @@ public class FeedbackFormTest extends BaseTest {
         feedbackFormPage.openFeedbackForm();
         feedbackFormPage.fillFeedbackForm(name, phone, message);
 
-        // Assert for first name input
         String firstNameValue = feedbackFormPage.getFirstNameValue();
-        Assert.assertEquals(firstNameValue, name, "First name input value is incorrect");
+        Assert.assertEquals(firstNameValue, name, "Значение в поле ввода имени неверно.");
 
-        // Assert for phone input
         String phoneValue = feedbackFormPage.getPhoneValue();
-        String formattedPhoneNumber = FeedbackFormPage.formatPhoneNumber(phone); // Ensure this method is accessible
-        Assert.assertEquals(phoneValue, formattedPhoneNumber, "Phone input value is incorrect");
+        String formattedPhoneNumber = FeedbackFormPage.formatPhoneNumber(phone);
+        Assert.assertEquals(phoneValue, formattedPhoneNumber, "Значение в поле ввода телефона неверно.");
 
-        // Assert for comment input
         String commentValue = feedbackFormPage.getCommentValue();
-        Assert.assertEquals(commentValue, message, "Comment input value is incorrect");
+        Assert.assertEquals(commentValue, message, "Значение в поле ввода комментария неверно.");
     }
 }

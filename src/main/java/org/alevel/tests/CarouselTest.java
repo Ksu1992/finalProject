@@ -1,55 +1,24 @@
 package org.alevel.tests;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.alevel.pages.CarouselPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import java.time.Duration;
-import java.util.List;
 
 public class CarouselTest extends BaseTest {
+
     @Test
     public void testCarousel() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        CarouselPage carouselPage = new CarouselPage(driver);
 
-        // Ожидание видимости блока с каруселью
-        By carouselBlockSelector = By.xpath("//div[@class='page home-page']");
-        WebElement carouselBlock = wait.until(ExpectedConditions.visibilityOfElementLocated(carouselBlockSelector));
+        carouselPage.waitForCarouselVisibility();
 
-        // Ожидание видимости карусели
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='owl-dots']")));
-
-        // Локаторы XPath для каждой из пяти кнопок карусели
-        List<String> carouselItemXPaths = List.of(
-                "//button[@class='owl-dot'][1]",
-                "//button[@class='owl-dot'][2]",
-                "//button[@class='owl-dot'][3]",
-                "//button[@class='owl-dot'][4]"
-        );
-
-        int expectedInactiveDots = carouselItemXPaths.size();
-
-        // Прокручиваем карусель, кликая на каждую из пяти кнопок
-        for (String itemXPath : carouselItemXPaths) {
-            // Используйте локатор XPath для каждой кнопки
-            By currentLocator = By.xpath(itemXPath);
-
-            // Находим кнопку и кликаем на нее
-            WebElement carouselDot = wait.until(ExpectedConditions.visibilityOfElementLocated(currentLocator));
-            carouselDot.click();
-
-            // Ожидание, что новый элемент карусели становится видимым
-            By activeDotLocator = By.xpath("//button[@class='owl-dot active']");
-            wait.until(ExpectedConditions.presenceOfElementLocated(activeDotLocator));
+        // Assuming 4 dots based on your setup
+        for (int i = 0; i < 4; i++) {
+            carouselPage.clickCarouselDot(i);
         }
 
-        // Проверяем, что только один элемент стал активным
-        List<WebElement> activeDots = carouselBlock.findElements(By.xpath("//button[@class='owl-dot active']"));
-        Assert.assertEquals(activeDots.size(), 1, "Неверное количество активных элементов в карусели");
-
-        // Проверяем, что количество неактивных элементов соответствует ожидаемому
-        List<WebElement> inactiveDots = carouselBlock.findElements(By.xpath("//button[@class='owl-dot' and not(@class='owl-dot active')]"));
-        Assert.assertEquals(inactiveDots.size(), expectedInactiveDots, "Неверное количество неактивных элементов в карусели");
+        // Assertions
+        int expectedInactiveDots = 4; // Total number of dots - 1 for active
+        Assert.assertEquals(carouselPage.getNumberOfActiveDots(), 1, "Неверное количество активных элементов в карусели");
+        Assert.assertEquals(carouselPage.getNumberOfInactiveDots(), expectedInactiveDots, "Неверное количество неактивных элементов в карусели");
     }
 }

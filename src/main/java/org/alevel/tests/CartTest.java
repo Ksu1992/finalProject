@@ -15,7 +15,7 @@ public class CartTest extends BaseTest {
 
         String itemCount = cartPage.getItemCountText();
         System.out.println(itemCount);
-        Assert.assertNotEquals(itemCount, "0", "Cart is empty, but should have items.");
+        Assert.assertNotEquals(itemCount, "0", "Корзина пуста, но должна содержать товары.");
     }
 
     @Test(dataProvider = "productData")
@@ -30,7 +30,7 @@ public class CartTest extends BaseTest {
         cartPage.changeItemQuantity("5");
 
         String actualQuantity = cartPage.getItemQuantity();
-        Assert.assertEquals(actualQuantity, "5", "Quantity did not update correctly.");
+        Assert.assertEquals(actualQuantity, "5", "Количество не обновилось корректно.");
     }
 
     @Test(dataProvider = "productData")
@@ -45,6 +45,6 @@ public class CartTest extends BaseTest {
         cartPage.removeItem();
 
         boolean isItemRemoved = cartPage.isItemRemoved();
-        Assert.assertTrue(isItemRemoved, "Item is still present in the cart after removal.");
+        Assert.assertTrue(isItemRemoved, "Товар все еще присутствует в корзине после удаления.");
     }
 }
