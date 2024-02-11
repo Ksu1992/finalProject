@@ -43,7 +43,7 @@ public class PickupPage extends BasePage {
         hoursElement.click();
 
         // Выбор метода оплаты
-        WebElement paymentMethodsInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@type='radio' and starts-with(@name, 'payment[method]') and @value='checkmo']")));
+        WebElement paymentMethodsInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='portmone']")));
         paymentMethodsInput.click();
         this.placeOrder = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='place-order-primary']")));
 

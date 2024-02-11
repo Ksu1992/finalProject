@@ -1,5 +1,4 @@
 package org.alevel.base;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -14,8 +13,8 @@ public class DriverFactory {
         System.setProperty("webdriver.gecko.driver", "C:\\driver\\geckodriver.exe");
         FirefoxOptions options = new FirefoxOptions();
         options.setBinary("C:\\Program Files\\Mozilla Firefox\\firefox.exe");
-        options.addArguments("-headless");
-        options.addArguments("--width=1920", "--height=1080");
+//        options.addArguments("-headless");
+//        options.addArguments("--width=1920", "--height=1080");
         return new FirefoxDriver(options);
     }
     public static WebDriver createChromeDriver() {
